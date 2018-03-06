@@ -1,16 +1,16 @@
 <template>
-  <svg v-bind:width="widthForSVG" height="110" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <svg width="126" height="110" id="svg" ref="mainSvg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g id="runway-svg" fill="none" fill-rule="evenodd">
       <g id="runway">
         <g id="main">
-          <rect stroke="#37474F" id="main-runway" stroke-width="5" fill="#78909C" x="2.5" y="2.5" v-bind:width="widthForMain" height="105" rx="4"/>
+          <rect stroke="#37474F" id="main-runway" ref="mainRunway" stroke-width="5" fill="#78909C" x="2.5" y="2.5" width="121" height="105" rx="4"/>
           <g id="marking-bottom" transform="translate(5 95)" >
-            <rect id="marking-bottom--dark" fill="#FFAB00" x="0" y="5" height="5" v-bind:width="widthForBorder"/>
-            <rect id="marking-bottom--yellow" fill="#37474F" x="0" y="0" height="5" v-bind:width="widthForBorder"/>
+            <rect id="marking-bottom--dark" fill="#FFAB00" x="0" y="5" height="5" ref="markingBottomDark" width="116"/>
+            <rect id="marking-bottom--yellow" fill="#37474F" x="0" y="0" height="5" ref="markingBottomYellow" width="116"/>
           </g>
-          <g id="marking-top" transform="translate(5 5)">
-            <rect id="marking-top--dark" fill="#FFAB00" x="0" y="0" height="5" v-bind:width="widthForBorder"/>
-            <rect id="marking-top--yellow" fill="#37474F" x="0" y="5" height="5"  v-bind:width="widthForBorder"/>
+          <g id="marking-top" ref="markings" transform="translate(5 5)">
+            <rect id="marking-top--dark" fill="#FFAB00" x="0" y="0" height="5" ref="markingTopDark" width="116"/>
+            <rect id="marking-top--yellow" fill="#37474F" x="0" y="5" height="5" ref="markingTopYellow" width="116"/>
           </g>
         </g>
         <g transform="translate(2 52)" id="markings-center" fill-rule="nonzero">
@@ -99,7 +99,7 @@
             </g>
           </g>
         </g>
-        <g id="airplane" transform="rotate(90 48 54)" fill-rule="nonzero">
+        <g id="airplane" ref="airplaneSvg" transform="rotate(90 48 54)" fill-rule="nonzero">
           <g id="Group" transform="translate(0 24)">
             <g id="Shape">
               <path fill="#FFF" d="M2.4 26.2L43.7 2.4l2 19-.9 3.3-42.4 6.5z"/>
@@ -121,6 +121,11 @@
 </template>
 
 <script>
+import TweenLite from 'gsap/TweenLite'
+import TimelineLite from 'gsap/TimelineLite'
+import Sine from 'gsap/EasePack'
+import 'gsap/CSSPlugin'
+
 export default {
   name: 'Runway',
 
@@ -133,10 +138,7 @@ export default {
       step1: true,
       step2: false,
       step3: false,
-      step4: false,
-      widthForSVG: 126,
-      widthForMain: 121,
-      widthForBorder: 116
+      step4: false
     }
   },
 
@@ -145,6 +147,10 @@ export default {
       this.calculateAnimationStep(this.runway)
       this.changeSVGWidths()
     }
+  },
+
+  mounted: function () {
+    this.airplaneAnimation()
   },
 
   methods: {
@@ -172,27 +178,57 @@ export default {
       }
     },
 
+    airplaneAnimation () {
+      const airplaneSvg = this.$refs.airplaneSvg
+      const airplaneTimeline = new TimelineLite()
+
+      airplaneTimeline
+        .set(airplaneSvg, {
+          x: '0',
+          scale: 1.1
+        })
+        .add(TweenLite.to(airplaneSvg, 2, {
+          ease: Sine.easeOut,
+          x: '106px',
+          scale: 1
+        }))
+        .add(TweenLite.to(airplaneSvg, 3, {
+          x: '106px',
+          scale: 1
+        }))
+        .add(TweenLite.to(airplaneSvg, 4, {
+          ease: Sine.easeIn,
+          x: '812px',
+          scale: 1.2,
+          onComplete: function () { airplaneTimeline.restart(true, false) }
+        }))
+    },
+
     changeSVGWidths () {
+      const mainSvg = this.$refs.mainSvg
+      const mainRunway = this.$refs.mainRunway
+      const markingTopYellow = this.$refs.markingTopYellow
+      const markingTopDark = this.$refs.markingTopDark
+      const markingBottomYellow = this.$refs.markingBottomYellow
+      const markingBottomDark = this.$refs.markingBottomDark
+      const animationDuration = 0.4
+
       if (this.step4) {
-        // console.log('Step 4 is true')
-        this.widthForSVG = 582
-        this.widthForMain = 576
-        this.widthForBorder = 571
+        TweenLite.to(mainSvg, animationDuration, { width: 582 })
+        TweenLite.to(mainRunway, animationDuration, { width: 576 })
+        TweenLite.to([markingTopYellow, markingTopDark, markingBottomYellow, markingBottomDark], animationDuration, { width: 571 })
       } else if (this.step3) {
-        // console.log('Step 3 is true')
-        this.widthForSVG = 431
-        this.widthForMain = 426
-        this.widthForBorder = 421
+        TweenLite.to(mainSvg, animationDuration, { width: 431 })
+        TweenLite.to(mainRunway, animationDuration, { width: 426 })
+        TweenLite.to([markingTopYellow, markingTopDark, markingBottomYellow, markingBottomDark], animationDuration, { width: 421 })
       } else if (this.step2) {
-        // console.log('Step 2 is true')
-        this.widthForSVG = 281
-        this.widthForMain = 276
-        this.widthForBorder = 271
+        TweenLite.to(mainSvg, animationDuration, { width: 281 })
+        TweenLite.to(mainRunway, animationDuration, { width: 276 })
+        TweenLite.to([markingTopYellow, markingTopDark, markingBottomYellow, markingBottomDark], animationDuration, { width: 271 })
       } else if (this.step1) {
-        // console.log('Step 1 is true')
-        this.widthForSVG = 126
-        this.widthForMain = 121
-        this.widthForBorder = 116
+        TweenLite.to(mainSvg, animationDuration, { width: 126 })
+        TweenLite.to(mainRunway, animationDuration, { width: 121 })
+        TweenLite.to([markingTopYellow, markingTopDark, markingBottomYellow, markingBottomDark], animationDuration, { width: 116 })
       }
     }
   }
@@ -204,39 +240,6 @@ export default {
   svg {
     grid-area: svg;
     margin: 0 auto;
-    transition: width 0.4s ease-out;
   }
 
-  #main-runway,
-  #marking-top--dark,
-  #marking-top--yellow,
-  #marking-bottom--dark,
-  #marking-bottom--yellow {
-    transition: width 0.4s ease-out;
-  }
-
-  #airplane {
-    animation-name: airplane-land;
-    animation-duration: 10s;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in;
-  }
-
-  @keyframes airplane-land {
-    0% {
-      transform: scale(1.05) rotateZ(90deg) translateX(6px) translateY(0px);
-    }
-    20% {
-      transform: scale(1.05) rotateZ(90deg) translateX(6px) translateY(0px);
-    }
-    30% {
-      transform: scale(1) rotateZ(90deg) translateX(6px) translateY(-106px);
-    }
-    80% {
-      transform: scale(1) rotateZ(90deg) translateX(6px) translateY(-106px);
-    }
-    100% {
-      transform: scale(1.2) rotateZ(90deg) translateX(6px) translateY(-606px);
-    }
-  }
 </style>
