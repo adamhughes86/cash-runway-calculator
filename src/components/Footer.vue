@@ -2,6 +2,8 @@
   <footer>
     <p>A VueJS experiment by <a href="http://forwardtheory.co.uk">Forward Theory</a></p>
 
+    <p><a href="https://github.com/adamhughes86/cash-runway-calculator">Source code on Github</a></p>
+
     <a href="http://forwardtheory.co.uk">
       <svg width="118" height="24" xmlns="http://www.w3.org/2000/svg">
         <g fill="#0BFF97" fill-rule="evenodd">
