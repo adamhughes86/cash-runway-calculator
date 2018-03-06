@@ -2,6 +2,10 @@
 
 > A Vue.js project
 
+> [Demo](https://adamhughes86.github.io/cash-runway-calculator/)
+
+> Article coming soon...
+
 ## Build Setup
 
 ``` bash
