@@ -236,10 +236,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  @import "../theme/media-queries";
 
   svg {
-    grid-area: svg;
-    margin: 0 auto;
+    display: none;
+
+    @include breakpoint(medium) {
+      display: block;
+      grid-area: svg;
+      margin: 0 auto;
+    }
   }
 
 </style>

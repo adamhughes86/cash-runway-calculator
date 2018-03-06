@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "../theme/style";
+  @import "../theme/variables";
 
   footer {
     grid-area: footer;

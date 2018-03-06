@@ -12,22 +12,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "../theme/style";
+  @import "../theme/variables";
+  @import "../theme/media-queries";
 
   section {
     grid-area: main;
   }
 
   p {
-    float: right;
-    max-width: 400px;
+    padding: 0 16px;
     color: $color-dark;
     font-family: $font-body;
-    font-size: 16px;
+    font-size: 18px;
 
     &:first-child {
       margin-top: 5px;
       padding-top: 0;
+    }
+
+    @include breakpoint(medium) {
+      padding: 0;
+      float: right;
+      max-width: 400px;
     }
   }
 </style>

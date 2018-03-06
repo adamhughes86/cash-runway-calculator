@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "../theme/style";
+  @import "../theme/variables";
 
   header {
     grid-area: header;
@@ -27,5 +27,6 @@ export default {
     font-family: $font-heading;
     font-size: 45px;
     font-weight: 800;
+    line-height: 1;
   }
 </style>

@@ -54,16 +54,22 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-  @import "../theme/style";
+  @import "../theme/variables";
+  @import "../theme/media-queries";
 
   section {
     grid-area: calculator;
-    padding: 20px;
+    padding: 16px;
+    margin-bottom: 16px;
     background-color: $color-dark;
     border-color: $color-accent;
     border-style: solid;
-    border-width: 5px 0 5px 5px;
-    border-radius: 6px 0 0 6px;
+    border-width: 5px 0 5px 0;
+
+    @include breakpoint(medium) {
+      border-radius: 6px 0 0 6px;
+      border-width: 5px 0 5px 5px;
+    }
   }
 
   .inner {
@@ -106,6 +112,7 @@ export default {
     position: relative;
     grid-column-end: -1;
     padding: 8px;
+    margin-top: 16px;
     color: #fff;
     font-weight: 800;
     font-family: $font-heading;
@@ -116,6 +123,10 @@ export default {
     border: 0;
     cursor: pointer;
     transition: color 0.4s ease-out, top 0.4s ease-out;
+
+    @supports(display: grid) {
+      margin: 0;
+    }
 
     span {
       position: relative;

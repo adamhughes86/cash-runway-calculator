@@ -53,7 +53,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "../theme/style";
+  @import "../theme/variables";
+  @import "../theme/media-queries";
 
   section {
     grid-area: results;
@@ -61,11 +62,16 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 16px;
     min-height: 120px;
     text-align: center;
     background-color: $color-light;
     border-top: 5px solid $color-dark;
     border-bottom: 5px solid $color-dark;
+
+    @include breakpoint(medium) {
+      margin-bottom: 0;
+    }
   }
 
   h2 {

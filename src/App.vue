@@ -22,6 +22,8 @@ export default {
 </script>
 
 <style lang="scss">
+  @import "./theme/media-queries";
+
   html,
   body {
     margin: 0;
@@ -30,14 +32,17 @@ export default {
   #app {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    display: grid;
-    grid-gap: 16px;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-    grid-template-areas: "header header"
+    display: block;
+
+    @include breakpoint(medium) {
+      display: grid;
+      grid-gap: 16px;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: "header header"
                          "main calculator"
                          "results results"
                          "svg svg"
                          "footer footer";
+    }
   }
 </style>
