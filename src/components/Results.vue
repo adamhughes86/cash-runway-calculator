@@ -2,6 +2,7 @@
   <section>
     <h2 v-if="displayResultsCheck === true">{{ runway }} months runway</h2>
     <h3 v-if="displayResultsCheck === true">{{ runwayEndDate }}</h3>
+    <p v-else class="waiting">Waiting for your calculation</p>
   </section>
 </template>
 
@@ -56,13 +57,20 @@ export default {
 
   section {
     grid-area: results;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     min-height: 120px;
     text-align: center;
+    background-color: $color-light;
+    border-top: 5px solid $color-dark;
+    border-bottom: 5px solid $color-dark;
   }
 
   h2 {
     margin: 16px 0 0;
-    color: $color-dark;
+    color: $color-accent;
     font-family: $font-heading;
     font-size: 34px;
     font-weight: 800;
@@ -70,8 +78,14 @@ export default {
 
   h3 {
     margin: 0 0 16px 0;
-    color: $color-dark;
+    color: $color-accent;
     font-family: $font-body;
     font-size: 24px;
+  }
+
+  .waiting {
+    color: $color-accent;
+    font-family: $font-body;
+    font-size: 16px;
   }
 </style>
