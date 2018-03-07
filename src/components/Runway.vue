@@ -200,7 +200,7 @@ export default {
           ease: Sine.easeIn,
           x: '812px',
           scale: 1.2,
-          onComplete: function () { airplaneTimeline.restart(true, false) }
+          onComplete: () => { airplaneTimeline.restart(true, false) }
         }))
     },
 
